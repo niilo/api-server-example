@@ -1,10 +1,7 @@
 package main
 
 import (
-	"io"
 	"net/http"
-
-	"html/template"
 
 	"github.com/labstack/echo"
 	mw "github.com/labstack/echo/middleware"
@@ -13,11 +10,6 @@ import (
 )
 
 type (
-	// Template provides HTML template rendering
-	Template struct {
-		templates *template.Template
-	}
-
 	user struct {
 		ID   string `json:"id"`
 		Name string `json:"name"`
@@ -27,11 +19,6 @@ type (
 var (
 	users map[string]user
 )
-
-// Render HTML
-func (t *Template) Render(w io.Writer, name string, data interface{}) error {
-	return t.templates.ExecuteTemplate(w, name, data)
-}
 
 //----------
 // Handlers
@@ -97,17 +84,6 @@ func main() {
 	e.Post("/users", createUser)
 	e.Get("/users", getUsers)
 	e.Get("/users/:id", getUser)
-
-	//-----------
-	// Templates
-	//-----------
-
-	t := &Template{
-		// Cached templates
-		templates: template.Must(template.ParseFiles("public/views/welcome.html")),
-	}
-	e.SetRenderer(t)
-	e.Get("/welcome", welcome)
 
 	//-------
 	// Group
