@@ -4,12 +4,11 @@ Work in progress example API Server built with golang.
 
 Planned features:
 - [x] Docker based dependencies vendoring
-- [] Swagger documentation
-- [] Statistics endpoints
-- [] Periodically send statistics to StatHat or similar services 
-- [] Heathcheck endpoints
-- [] Build scripts for minimalistic Docker deployments
-- 
+- [ ] Swagger documentation
+- [ ] Statistics endpoints
+- [ ] Periodically send statistics to StatHat or similar services 
+- [ ] Heathcheck endpoints
+- [ ] Build scripts for minimalistic Docker deployments 
 
 ## Swagger documentation
 
