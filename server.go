@@ -96,15 +96,6 @@ func main() {
 		return c.JSON(http.StatusOK, s.Data())
 	})
 
-	// Serve index file
-	e.Index("public/index.html")
-
-	// Serve favicon
-	e.Favicon("public/favicon.ico")
-
-	// Serve static files
-	e.Static("/scripts", "public/scripts")
-
 	//--------
 	// Routes
 	//--------
@@ -125,15 +116,6 @@ func main() {
 	})
 	a.Get("", func(c *echo.Context) error {
 		return c.String(http.StatusOK, "Welcome admin!")
-	})
-
-	// Group with no parent middleware
-	g := e.Group("/files", func(c *echo.Context) error {
-		// Security middleware
-		return nil
-	})
-	g.Get("", func(c *echo.Context) error {
-		return c.String(http.StatusOK, "Your files!")
 	})
 
 	for apiKey, _ := range apiDescriptionsJson {
