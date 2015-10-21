@@ -1,0 +1,4 @@
+app
+docs.go
+vendor/bin/
+vendor/pkg/
