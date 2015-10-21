@@ -6,14 +6,14 @@ Planned features:
 - [x] Docker based dependencies vendoring
 - [ ] Swagger documentation
 - [ ] Statistics endpoints
-- [ ] Periodically send statistics to StatHat or similar services 
+- [ ] Periodically send statistics to StatHat or similar services
 - [ ] Heathcheck endpoints
-- [ ] Build scripts for minimalistic Docker deployments 
+- [ ] Build scripts for minimalistic Docker deployments
 
 ## Swagger documentation
 
 Swagger documentation can be created with 'make generate-swagger' command
-Swagger *must* be generated manually every time code changes. This will be changed to static binary creation stage when ready.
+Swagger documentation will be generated also with 'make build-static-binary' 
 
 When server is running swagger documentation endpoint is http://localhost:1323/docs/users
 
