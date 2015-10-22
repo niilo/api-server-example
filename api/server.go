@@ -20,8 +20,8 @@ import (
 
 type (
 	User struct {
-		ID   string `json:"id"`
-		Name string `json:"name"`
+		ID   string `json:"id,required" description:"user ID"`
+		Name string `json:"name,required" description:"Firstname and lastname"`
 	}
 
 	Users struct {
@@ -37,10 +37,13 @@ var (
 // Handlers
 //----------
 
-func welcome(c *echo.Context) error {
-	return c.Render(http.StatusOK, "welcome", "Joe")
-}
-
+// @Title createUser
+// @Description create user
+// @Accept  json
+// @Param   user      body   User  true        "user object"
+// @Success 201 {object}	User
+// @Failure 400 {object} error "failed to create user"
+// @Router /users [post]
 func createUser(c *echo.Context) error {
 	u := new(User)
 	if err := c.Bind(u); err != nil {
@@ -53,7 +56,6 @@ func createUser(c *echo.Context) error {
 // @Title getUsers
 // @Description get all users
 // @Accept  json
-// @Param   id     path    string     true        "User Id"
 // @Success 200 {object} Users
 // @Failure 400 {object} error "users not found"
 // @Router /users [get]
