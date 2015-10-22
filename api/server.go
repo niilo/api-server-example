@@ -12,6 +12,8 @@ import (
 	"net/http"
 	"strings"
 
+	"gopkg.in/go-playground/validator.v8"
+
 	"github.com/labstack/echo"
 	mw "github.com/labstack/echo/middleware"
 	"github.com/rs/cors"
@@ -20,8 +22,8 @@ import (
 
 type (
 	User struct {
-		ID   string `json:"id,required" description:"user ID"`
-		Name string `json:"name,required" description:"Firstname and lastname"`
+		ID   string `json:"id,required" validate:"required" description:"user ID"`
+		Name string `json:"name,required" validate:"required" description:"Firstname and lastname"`
 	}
 
 	Users struct {
@@ -30,7 +32,8 @@ type (
 )
 
 var (
-	users Users
+	users    Users
+	validate *validator.Validate
 )
 
 //----------
@@ -47,6 +50,9 @@ var (
 func createUser(c *echo.Context) error {
 	u := new(User)
 	if err := c.Bind(u); err != nil {
+		return err
+	}
+	if err := validate.Struct(u); err != nil {
 		return err
 	}
 	users.Users[u.ID] = *u
@@ -76,6 +82,10 @@ func getUser(c *echo.Context) error {
 }
 
 func main() {
+
+	config := &validator.Config{TagName: "validate"}
+	validate = validator.New(config)
+
 	e := echo.New()
 
 	// Middleware
